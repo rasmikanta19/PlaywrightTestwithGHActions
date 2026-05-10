@@ -30,7 +30,7 @@ jobs:
 
       # 4. Install Playwright browsers (chromium + firefox) with OS dependencies
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium firefox
+        run: npx playwright install --with-deps chromium
 
       # 5. Run Playwright tests
       - name: Run Playwright tests
@@ -44,3 +44,27 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
+
+          
+              # 7. Send email notification with test result
+      - name: Send email notification
+        uses: dawidd6/action-send-mail@v3
+        if: always()
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: "Playwright Tests ${{ job.status == 'success' && 'PASSED ✅' || 'FAILED ❌' }} — ${{ github.repository }}"
+          to: ${{ secrets.MAIL_TO }}
+          from: ${{ secrets.MAIL_USERNAME }}
+          body: |
+            Playwright test run completed.
+
+            Status   : ${{ job.status }}
+            Repo     : ${{ github.repository }}
+            Branch   : ${{ github.ref_name }}
+            Commit   : ${{ github.sha }}
+            Triggered: ${{ github.event_name }}
+            Run URL  : https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
