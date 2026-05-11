@@ -16,7 +16,7 @@ test.describe('Travel Login', () => {
 
     // Click the "Get started" link
     await expect(page.getByRole('button', { name: 'Sign On',exact: true })).toBeVisible();
-    await page.locator(username).fill('tycUAT2_27361');
+    await page.locator(username).fill('tycUAT2_88664');
     await page.locator(password).fill('Test@1234');
     await page.locator(signInButton).click();
 
