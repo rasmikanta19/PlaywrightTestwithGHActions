@@ -12,12 +12,12 @@ test.describe('Travel Login', () => {
     const MMBIcon="mmb-icon-button";
 
     // page.getByRole('button', { name: 'Sign On' })
-    await page.goto('https://uat02.citi.com/citi-partner/cititravel/login');
+    await page.goto('https://uat01.citi.com/citi-partner/cititravel/login');
 
     // Click the "Get started" link
     await expect(page.getByRole('button', { name: 'Sign On',exact: true })).toBeVisible();
     console.log("Sign On button is visible");
-    await page.locator(username).fill('tycUAT2_88664');
+    await page.locator(username).fill('tycUAT1_73159');
     await page.locator(password).fill('Test@1234');
     console.log("Entered username and password");
     await page.locator(signInButton).click();
