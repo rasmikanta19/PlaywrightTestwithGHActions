@@ -30,6 +30,7 @@ test.describe('Travel Login', () => {
     await expect(page.getByTestId(MMBIcon)).toBeVisible();
     await page.getByTestId(MMBIcon).click();
     console.log("Clicked on MMB Icon");
+    console.log("Current URL: " + page.url());
     await page.close();
     // Expect the URL to contain /docs/intro
 
